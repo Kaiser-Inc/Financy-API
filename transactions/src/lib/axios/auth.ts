@@ -14,7 +14,7 @@ export async function verify(token: string) {
 		{},
 		{
 			headers: {
-				Authorization: token,
+				Authorization: `Bearer ${token}`,
 			},
 		},
 	);
