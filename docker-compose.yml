@@ -12,9 +12,11 @@ services:
 
   financy-auth:
     build: ./auth
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
-      - JWT_SECRET=${JWT_SECRET}
+      - JWT_SECRET= ${JWT_SECRET}
     ports:
       - "4013:4013"
     depends_on:
