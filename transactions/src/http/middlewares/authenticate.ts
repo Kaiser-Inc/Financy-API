@@ -1,4 +1,4 @@
-import { auth } from "@/lib/axios/auth";
+import { auth, verify } from "@/lib/axios/auth";
 import type { FastifyRequest, FastifyReply } from "fastify";
 
 export async function verifyJWT(request: FastifyRequest, reply: FastifyReply) {
@@ -9,16 +9,8 @@ export async function verifyJWT(request: FastifyRequest, reply: FastifyReply) {
 	}
 
 	try {
-		const response = await auth.post(
-			"/token/verify",
-			{},
-			{
-				headers: {
-					Authorization: token,
-				},
-			},
-		);
-		request.user = response.data.user;
+		const { user } = await verify(token);
+		request.user = user;
 	} catch (error) {
 		return reply.status(401).send({ error: "Invalid token." });
 	}

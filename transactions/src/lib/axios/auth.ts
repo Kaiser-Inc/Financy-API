@@ -1,8 +1,23 @@
+import { env } from "@/env";
 import axios from "axios";
 
 export const auth = axios.create({
-	baseURL: "http://financy-auth:4013",
+	baseURL: env.AUTH_SERVICE_URL,
 	headers: {
 		"Content-Type": "application/json",
 	},
 });
+
+export async function verify(token: string) {
+	const response = await auth.post(
+		"/token/verify",
+		{},
+		{
+			headers: {
+				Authorization: token,
+			},
+		},
+	);
+
+	return response.data;
+}
