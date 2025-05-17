@@ -1,0 +1,35 @@
+services:
+  FinancyDB:
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=FinancyDB
+    volumes:
+      - FinancyDB:/var/lib/postgresql/data
+
+  financy-auth:
+    build: ./auth
+    environment:
+      - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "4013:4013"
+    depends_on:
+      - FinancyDB
+
+  financy-transactions:
+    build: ./transactions
+    environment:
+      - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
+      - AUTH_SERVICE_URL= http://financy-auth:4013
+    ports:
+      - "3333:3333"
+    depends_on:
+      - FinancyDB
+      - financy-auth
+
+volumes:
+  FinancyDB:
