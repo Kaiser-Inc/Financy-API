@@ -1,7 +1,5 @@
-import type { Prisma, Transaction,  } from '@/../prisma/client'
-import type { Decimal } from 'prisma/client/runtime/library'
-
-
+import type { Prisma, Transaction } from '@/lib/client'
+import type { Decimal } from '@/lib/client/runtime/library'
 
 export interface TransactionsRepository {
   create(data: Prisma.TransactionUncheckedCreateInput): Promise<Transaction>

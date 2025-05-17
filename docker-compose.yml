@@ -24,7 +24,7 @@ services:
     build: ./transactions
     environment:
       - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
-      - AUTH_SERVICE_URL= http://financy-auth:4013
+      - AUTH_SERVICE_URL=http://financy-auth:4013
     ports:
       - "3333:3333"
     depends_on:
