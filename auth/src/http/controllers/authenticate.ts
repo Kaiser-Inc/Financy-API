@@ -23,14 +23,18 @@ export async function authenticate(
 		});
 
 		const token = await reply.jwtSign(
-			{},
+			{
+				name: user.name,
+			},
 			{
 				sub: user.id,
 			},
 		);
 
 		const refreshToken = await reply.jwtSign(
-			{},
+			{
+				name: user.name,
+			},
 			{
 				sub: user.id,
 				expiresIn: "7d",
