@@ -1,9 +1,9 @@
-import { PrismaTransactionsRepository } from "@/repositories/prisma/prisma-transactions-repository";
-import { ExportTransactionsUseCase } from "../export-transactions";
+import { PrismaTransactionsRepository } from '@/repositories/prisma/prisma-transactions-repository'
+import { ExportTransactionsUseCase } from '../export-transactions'
 
 export function makeExportTransactionsUseCase() {
-	const transactionsRepository = new PrismaTransactionsRepository();
-	const useCase = new ExportTransactionsUseCase(transactionsRepository);
+  const transactionsRepository = new PrismaTransactionsRepository()
+  const useCase = new ExportTransactionsUseCase(transactionsRepository)
 
-	return useCase;
+  return useCase
 }

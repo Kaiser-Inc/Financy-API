@@ -1,28 +1,28 @@
-import type { TransactionsRepository } from "@/repositories/transactions-repository";
-import type { Transaction } from "@/lib/client";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import type { Transaction } from '@/lib/client'
+import type { TransactionsRepository } from '@/repositories/transactions-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface getTransactionUseCaseRequest {
-	transactionId: string;
+  transactionId: string
 }
 
 interface getTransactionUseCaseResponse {
-	transaction: Transaction;
+  transaction: Transaction
 }
 
 export class getTransactionUseCase {
-	constructor(private transactionsRepository: TransactionsRepository) {}
+  constructor(private transactionsRepository: TransactionsRepository) {}
 
-	async execute({
-		transactionId,
-	}: getTransactionUseCaseRequest): Promise<getTransactionUseCaseResponse> {
-		const transaction =
-			await this.transactionsRepository.findById(transactionId);
+  async execute({
+    transactionId,
+  }: getTransactionUseCaseRequest): Promise<getTransactionUseCaseResponse> {
+    const transaction =
+      await this.transactionsRepository.findById(transactionId)
 
-		if (!transaction) {
-			throw new ResourceNotFoundError();
-		}
+    if (!transaction) {
+      throw new ResourceNotFoundError()
+    }
 
-		return { transaction };
-	}
+    return { transaction }
+  }
 }

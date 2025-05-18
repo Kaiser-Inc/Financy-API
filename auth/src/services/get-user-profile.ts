@@ -1,5 +1,5 @@
-import type { UsersRepository } from '@/repositories/users-repository'
 import type { User } from '@/lib/client'
+import type { UsersRepository } from '@/repositories/users-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 interface GetUserProfileUseCaseRequest {
   userId: string

@@ -11,7 +11,8 @@ services:
       - FinancyDB:/var/lib/postgresql/data
 
   financy-auth:
-    build: ./auth
+    build:
+      context: ./auth
     env_file:
       - .env
     environment:
@@ -23,7 +24,8 @@ services:
       - FinancyDB
 
   financy-transactions:
-    build: ./transactions
+    build:
+      context: ./transactions
     environment:
       - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
       - AUTH_SERVICE_URL=http://financy-auth:4013
