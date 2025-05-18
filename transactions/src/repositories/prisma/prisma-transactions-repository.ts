@@ -52,8 +52,11 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
 			where: {
 				userId,
 			},
-			take: 20,
-			skip: (page - 1) * 20,
+			...(page &&
+				page > 0 && {
+					take: 20,
+					skip: (page - 1) * 20,
+				}),
 		});
 		return transactions;
 	}
