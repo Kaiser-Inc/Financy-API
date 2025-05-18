@@ -7,6 +7,7 @@ interface CreateTransactionUseCaseRequest {
 	amount: number;
 	type: "credit" | "debit";
 	userId: string;
+	accomplishment?: Date;
 }
 
 interface CreateTransactionUseCaseResponse {
@@ -21,11 +22,13 @@ export class CreateTransactionUseCase {
 		amount,
 		type,
 		userId,
+		accomplishment,
 	}: CreateTransactionUseCaseRequest): Promise<CreateTransactionUseCaseResponse> {
 		const transaction = await this.transactionsRepository.create({
 			id: randomUUID(),
 			title,
 			amount: type === "credit" ? amount : amount * -1,
+			accomplishment,
 			userId,
 		});
 		return { transaction };
