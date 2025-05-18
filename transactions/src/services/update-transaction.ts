@@ -33,12 +33,19 @@ export class UpdateTransactionUseCase {
 		}
 
 		transaction.title = title ? title : transaction.title;
-		transaction.amount = amount
-			? new Decimal(type === "credit" ? amount : amount * -1)
-			: transaction.amount;
+
+		if (amount !== undefined) {
+			const transactionType =
+				type || (transaction.amount.isNegative() ? "debit" : "credit");
+			transaction.amount = new Decimal(
+				transactionType === "credit" ? amount : amount * -1,
+			);
+		}
 		transaction.accomplishment = accomplishment
 			? accomplishment
 			: transaction.accomplishment;
+
+		await this.transactionsRepository.save(transaction);
 
 		return { transaction };
 	}
