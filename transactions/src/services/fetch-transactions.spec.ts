@@ -18,6 +18,7 @@ describe("Fetch Transaction Use Case", () => {
 			amount: new Decimal(1000),
 			title: "test transaction 1",
 			userId: "Kaiser",
+			accomplishment: new Date(),
 		});
 
 		transactionsRepository.create({
@@ -25,6 +26,7 @@ describe("Fetch Transaction Use Case", () => {
 			amount: new Decimal(2000),
 			title: "test transaction 2",
 			userId: "Kaiser",
+			accomplishment: new Date(),
 		});
 
 		const { transactions } = await sut.execute({
@@ -53,6 +55,7 @@ describe("Fetch Transaction Use Case", () => {
 			amount: new Decimal(1000),
 			title: "Kaiser's transaction",
 			userId: "Kaiser",
+			accomplishment: new Date(),
 		});
 
 		// Criar transação para outro usuário
@@ -61,6 +64,7 @@ describe("Fetch Transaction Use Case", () => {
 			amount: new Decimal(2000),
 			title: "Other user's transaction",
 			userId: "OtherUser",
+			accomplishment: new Date(),
 		});
 
 		const { transactions } = await sut.execute({
@@ -81,6 +85,7 @@ describe("Fetch Transaction Use Case", () => {
 				amount: new Decimal(1000 * i),
 				title: `Transaction ${i}`,
 				userId: "Kaiser",
+				accomplishment: new Date(),
 			});
 		}
 

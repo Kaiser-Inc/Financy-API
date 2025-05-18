@@ -19,6 +19,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(1000),
 			title: "Salário",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		await transactionsRepository.create({
@@ -26,6 +27,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(500),
 			title: "Freelance",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		// Criar transação de débito
@@ -34,6 +36,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(-300),
 			title: "Aluguel",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		const { summary } = await sut.execute({
@@ -50,6 +53,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(1000),
 			title: "Salário",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		// Criar transações de débito
@@ -58,6 +62,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(-800),
 			title: "Aluguel",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		await transactionsRepository.create({
@@ -65,6 +70,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(-500),
 			title: "Contas",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		const { summary } = await sut.execute({
@@ -89,6 +95,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(1000),
 			title: "Salário User 1",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		// Criar transações para o usuário 2
@@ -97,6 +104,7 @@ describe("Get Summary Use Case", () => {
 			amount: new Decimal(2000),
 			title: "Salário User 2",
 			userId: "user-2",
+			accomplishment: new Date(),
 		});
 
 		const { summary } = await sut.execute({

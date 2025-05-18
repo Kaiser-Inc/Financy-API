@@ -7,9 +7,10 @@ export async function createTransaction(
 	reply: FastifyReply,
 ) {
 	const createTransactionBodySchema = z.object({
-		title: z.string(),
-		amount: z.number(),
+		title: z.string().min(1, "O título é obrigatório"),
+		amount: z.number().positive("O valor deve ser positivo"),
 		type: z.enum(["credit", "debit"]),
+		accomplishment: z.date().default(new Date()),
 	});
 
 	const { amount, title, type } = createTransactionBodySchema.parse(

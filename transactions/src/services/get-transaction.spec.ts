@@ -19,6 +19,7 @@ describe("Get Transaction Use Case", () => {
 			amount: new Decimal(1000),
 			title: "test transaction",
 			userId: "user-1",
+			accomplishment: new Date(),
 		});
 
 		const { transaction } = await sut.execute({

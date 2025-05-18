@@ -1,11 +1,25 @@
 import { Decimal } from "@/lib/client/runtime/library";
 import type { TransactionsRepository } from "../transactions-repository";
-import type { Transaction } from "@/lib/client";
+import { Prisma, type Transaction } from "@/lib/client";
 import { randomUUID } from "node:crypto";
-import { T } from "vitest/dist/chunks/reporters.d.DG9VKi4m";
 
 export class InMemoryTransactionsRepository implements TransactionsRepository {
 	public items: Transaction[] = [];
+	async save(transaction: Transaction) {
+		const index = this.items.findIndex((item) => item.id === transaction.id);
+
+		if (index >= 0) {
+			this.items[index] = transaction;
+		}
+
+		return transaction;
+	}
+	async delete(id: string) {
+		const index = this.items.findIndex((item) => item.id === id);
+		if (index !== -1) {
+			this.items.splice(index, 1);
+		}
+	}
 
 	async findById(id: string) {
 		const transaction = await this.items.find((item) => item.id === id);
@@ -45,8 +59,9 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
 	async create(data: Transaction) {
 		const transaction: Transaction = {
 			id: data.id ? data.id : randomUUID(),
-			amount: data.amount,
 			title: data.title,
+			amount: data.amount,
+			accomplishment: data.accomplishment ? data.accomplishment : new Date(),
 			userId: data.userId ? data.userId : "Kaiser",
 		};
 
