@@ -19,6 +19,7 @@ describe('Fetch Transaction Use Case', () => {
       title: 'test transaction 1',
       userId: 'Kaiser',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     transactionsRepository.create({
@@ -27,6 +28,7 @@ describe('Fetch Transaction Use Case', () => {
       title: 'test transaction 2',
       userId: 'Kaiser',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { transactions } = await sut.execute({
@@ -56,6 +58,7 @@ describe('Fetch Transaction Use Case', () => {
       title: "Kaiser's transaction",
       userId: 'Kaiser',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     // Criar transação para outro usuário
@@ -65,6 +68,7 @@ describe('Fetch Transaction Use Case', () => {
       title: "Other user's transaction",
       userId: 'OtherUser',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { transactions } = await sut.execute({
@@ -86,6 +90,7 @@ describe('Fetch Transaction Use Case', () => {
         title: `Transaction ${i}`,
         userId: 'Kaiser',
         accomplishment: new Date(),
+        category: 'geral',
       })
     }
 

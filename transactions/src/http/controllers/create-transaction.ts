@@ -11,11 +11,11 @@ export async function createTransaction(
     amount: z.number().positive('O valor deve ser positivo'),
     type: z.enum(['credit', 'debit']),
     accomplishment: z.date().default(new Date()),
+    category: z.string().min(1, 'A categoria é obrigatória'),
   })
 
-  const { amount, title, type } = createTransactionBodySchema.parse(
-    request.body,
-  )
+  const { amount, title, type, accomplishment, category } =
+    createTransactionBodySchema.parse(request.body)
 
   try {
     const createTransactionUseCase = makeCreateTransactionUseCase()
@@ -24,6 +24,8 @@ export async function createTransaction(
       amount,
       title,
       type,
+      accomplishment,
+      category,
       userId: request.user.sub,
     })
     return reply.status(201).send(transaction)

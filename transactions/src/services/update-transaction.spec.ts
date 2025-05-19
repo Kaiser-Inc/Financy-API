@@ -20,6 +20,7 @@ describe('Update Transaction Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { transaction: updatedTransaction } = await sut.execute({
@@ -31,6 +32,25 @@ describe('Update Transaction Use Case', () => {
     expect(updatedTransaction.amount).toEqual(transaction.amount)
   })
 
+  it('should be able to update a transaction category', async () => {
+    const transaction = await transactionsRepository.create({
+      id: 'test-1',
+      amount: new Decimal(1000),
+      title: 'Salário',
+      userId: 'user-1',
+      accomplishment: new Date(),
+      category: 'geral',
+    })
+
+    const { transaction: updatedTransaction } = await sut.execute({
+      transactionId: transaction.id,
+      category: 'algo',
+    })
+
+    expect(updatedTransaction.category).toBe('algo')
+    expect(updatedTransaction.amount).toEqual(transaction.amount)
+  })
+
   it('should be able to update a transaction amount', async () => {
     const transaction = await transactionsRepository.create({
       id: 'test-1',
@@ -38,6 +58,7 @@ describe('Update Transaction Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { transaction: updatedTransaction } = await sut.execute({
@@ -60,6 +81,7 @@ describe('Update Transaction Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: originalDate,
+      category: 'geral',
     })
 
     const { transaction: updatedTransaction } = await sut.execute({
@@ -82,6 +104,7 @@ describe('Update Transaction Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: originalDate,
+      category: 'geral',
     })
 
     const { transaction: updatedTransaction } = await sut.execute({

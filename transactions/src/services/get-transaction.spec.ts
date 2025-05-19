@@ -20,6 +20,7 @@ describe('Get Transaction Use Case', () => {
       title: 'test transaction',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { transaction } = await sut.execute({

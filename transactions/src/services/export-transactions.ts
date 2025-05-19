@@ -25,10 +25,11 @@ export class ExportTransactionsUseCase {
     const worksheet = workbook.addWorksheet('Transações')
 
     worksheet.columns = [
-      { header: 'ID', key: 'id', width: 36 },
-      { header: 'Titulo', key: 'title', width: 30 },
+      { header: 'ID', key: 'id', width: 40 },
+      { header: 'Titulo', key: 'title', width: 35 },
       { header: 'Valor', key: 'amount', width: 15 },
       { header: 'Data', key: 'accomplishment', width: 25 },
+      { header: 'Categoria', key: 'category', width: 25 },
     ]
 
     for (const transaction of transactions) {
@@ -37,6 +38,7 @@ export class ExportTransactionsUseCase {
         title: transaction.title,
         amount: Number(transaction.amount),
         accomplishment: transaction.accomplishment,
+        category: transaction.category,
       })
 
       const amountCell = row.getCell('amount')
@@ -57,6 +59,38 @@ export class ExportTransactionsUseCase {
         }
         amountCell.font = { color: { argb: '9C0006' } }
       }
+    }
+
+    const totalAmount = transactions.reduce(
+      (acc, transaction) => acc + Number(transaction.amount),
+      0,
+    )
+    const summaryRow = worksheet.addRow({
+      id: '',
+      title: 'TOTAL',
+      amount: totalAmount,
+      accomplishment: '',
+      category: '',
+    })
+
+    const totalCell = summaryRow.getCell('amount')
+    totalCell.numFmt = '#,##0.00'
+    totalCell.font = { bold: true }
+
+    if (totalAmount >= 0) {
+      totalCell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'c6efce' },
+      }
+      totalCell.font = { ...totalCell.font, color: { argb: '006100' } }
+    } else {
+      totalCell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'ffc7ce' },
+      }
+      totalCell.font = { ...totalCell.font, color: { argb: '9c0006' } }
     }
 
     const buffer = await workbook.xlsx.writeBuffer()

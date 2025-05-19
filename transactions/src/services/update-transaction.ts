@@ -9,6 +9,7 @@ interface UpdateTransactionUseCaseRequest {
   amount?: number
   type?: 'credit' | 'debit'
   accomplishment?: Date
+  category?: string
 }
 
 interface UpdateTransactionUseCaseResponse {
@@ -24,6 +25,7 @@ export class UpdateTransactionUseCase {
     amount,
     title,
     type,
+    category,
   }: UpdateTransactionUseCaseRequest): Promise<UpdateTransactionUseCaseResponse> {
     const transaction =
       await this.transactionsRepository.findById(transactionId)
@@ -33,6 +35,7 @@ export class UpdateTransactionUseCase {
     }
 
     transaction.title = title ? title : transaction.title
+    transaction.category = category ? category : transaction.category
 
     if (amount !== undefined) {
       const transactionType =

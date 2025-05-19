@@ -16,6 +16,7 @@ describe('Create Transaction Use Case', () => {
       title: 'Salário',
       amount: 5000,
       type: 'credit',
+      category: 'geral',
       userId: 'user-1',
     })
 
@@ -30,6 +31,7 @@ describe('Create Transaction Use Case', () => {
       title: 'Aluguel',
       amount: 1500,
       type: 'debit',
+      category: 'geral',
       userId: 'user-1',
     })
 

@@ -20,6 +20,7 @@ describe('Get Summary Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     await transactionsRepository.create({
@@ -28,6 +29,7 @@ describe('Get Summary Use Case', () => {
       title: 'Freelance',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     // Criar transação de débito
@@ -37,6 +39,7 @@ describe('Get Summary Use Case', () => {
       title: 'Aluguel',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { summary } = await sut.execute({
@@ -54,6 +57,7 @@ describe('Get Summary Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     // Criar transações de débito
@@ -63,6 +67,7 @@ describe('Get Summary Use Case', () => {
       title: 'Aluguel',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     await transactionsRepository.create({
@@ -71,6 +76,7 @@ describe('Get Summary Use Case', () => {
       title: 'Contas',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { summary } = await sut.execute({
@@ -96,6 +102,7 @@ describe('Get Summary Use Case', () => {
       title: 'Salário User 1',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     // Criar transações para o usuário 2
@@ -105,6 +112,7 @@ describe('Get Summary Use Case', () => {
       title: 'Salário User 2',
       userId: 'user-2',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     const { summary } = await sut.execute({

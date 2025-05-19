@@ -20,6 +20,7 @@ describe('Delete Transaction Use Case', () => {
       title: 'Salário',
       userId: 'user-1',
       accomplishment: new Date(),
+      category: 'geral',
     })
 
     await sut.execute({

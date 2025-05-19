@@ -15,9 +15,10 @@ export async function updateTransaction(
     amount: z.number().positive('O valor deve ser positivo').optional(),
     type: z.enum(['credit', 'debit']).optional(),
     accomplishment: z.date().optional(),
+    category: z.string().optional(),
   })
 
-  const { amount, title, type, accomplishment } =
+  const { amount, title, type, accomplishment, category } =
     updateTransactionBodySchema.parse(request.body)
 
   const { transactionId } = updateTransactionParamsSchema.parse(request.params)
@@ -31,6 +32,7 @@ export async function updateTransaction(
       amount,
       type,
       accomplishment,
+      category,
     })
 
     return reply.status(200).send({ transaction })
