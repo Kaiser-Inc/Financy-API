@@ -1,4 +1,4 @@
-import { makeCreateTransactionUseCase } from '@/services/factories/make-create-transaction'
+import { makeCreateTransactionUseCase } from '@/services/factories/make-create-transaction-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

@@ -151,7 +151,7 @@ describe('Update Transaction Use Case', () => {
   it('should infer type from current amount when type is not provided', async () => {
     const transaction = await transactionsRepository.create({
       id: 'test-1',
-      amount: new Decimal(-1000), // Transação de débito
+      amount: new Decimal(-1000), 
       title: 'Despesa',
       userId: 'user-1',
       accomplishment: new Date(),
