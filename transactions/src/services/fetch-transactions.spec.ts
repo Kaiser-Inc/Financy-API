@@ -51,7 +51,6 @@ describe('Fetch Transaction Use Case', () => {
   })
 
   it('should only fetch transactions from the specified user', async () => {
-    // Criar transação para o usuário Kaiser
     transactionsRepository.create({
       id: 'test-1',
       amount: new Decimal(1000),
@@ -61,7 +60,6 @@ describe('Fetch Transaction Use Case', () => {
       category: 'geral',
     })
 
-    // Criar transação para outro usuário
     transactionsRepository.create({
       id: 'test-2',
       amount: new Decimal(2000),
@@ -82,7 +80,6 @@ describe('Fetch Transaction Use Case', () => {
   })
 
   it('should handle pagination correctly', async () => {
-    // Criar múltiplas transações
     for (let i = 1; i <= 25; i++) {
       transactionsRepository.create({
         id: `test-${i}`,
@@ -94,19 +91,17 @@ describe('Fetch Transaction Use Case', () => {
       })
     }
 
-    // Buscar primeira página
     const page1 = await sut.execute({
       userId: 'Kaiser',
       page: 1,
     })
 
-    // Buscar segunda página
     const page2 = await sut.execute({
       userId: 'Kaiser',
       page: 2,
     })
 
-    expect(page1.transactions).toHaveLength(20) // Assumindo 10 itens por página
+    expect(page1.transactions).toHaveLength(20)
     expect(page2.transactions).toHaveLength(5)
     expect(page1.transactions[0].title).toBe('Transaction 1')
     expect(page2.transactions[0].title).toBe('Transaction 21')

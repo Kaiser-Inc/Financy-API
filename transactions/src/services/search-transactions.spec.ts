@@ -36,7 +36,6 @@ describe('Search Transactions Use Case', () => {
       },
     ]
 
-    // Mock do método searchMany do repositório
     vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(mockTransactions)
 
     const { transactions } = await sut.execute({
@@ -67,7 +66,6 @@ describe('Search Transactions Use Case', () => {
       },
     ]
 
-    // Mock do método searchMany do repositório
     vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(mockTransactions)
 
     const { transactions } = await sut.execute({
@@ -93,7 +91,6 @@ describe('Search Transactions Use Case', () => {
     const userId = 'user-1'
     const page = 1
 
-    // Mock do método searchMany do repositório para retornar array vazio
     vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue([])
 
     const { transactions } = await sut.execute({

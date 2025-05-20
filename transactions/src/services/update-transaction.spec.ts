@@ -128,4 +128,59 @@ describe('Update Transaction Use Case', () => {
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
+
+  it('should update amount to negative when type is debit', async () => {
+    const transaction = await transactionsRepository.create({
+      id: 'test-1',
+      amount: new Decimal(1000),
+      title: 'Salário',
+      userId: 'user-1',
+      accomplishment: new Date(),
+      category: 'geral',
+    })
+
+    const { transaction: updatedTransaction } = await sut.execute({
+      transactionId: transaction.id,
+      amount: 2000,
+      type: 'debit',
+    })
+
+    expect(Number(updatedTransaction.amount)).toBe(-2000)
+  })
+
+  it('should infer type from current amount when type is not provided', async () => {
+    const transaction = await transactionsRepository.create({
+      id: 'test-1',
+      amount: new Decimal(-1000), // Transação de débito
+      title: 'Despesa',
+      userId: 'user-1',
+      accomplishment: new Date(),
+      category: 'geral',
+    })
+
+    const { transaction: updatedTransaction } = await sut.execute({
+      transactionId: transaction.id,
+      amount: 2000,
+    })
+
+    expect(Number(updatedTransaction.amount)).toBe(-2000)
+  })
+
+  it('should infer type from current amount when type is not provided for credit transaction', async () => {
+    const transaction = await transactionsRepository.create({
+      id: 'test-1',
+      amount: new Decimal(1000), 
+      title: 'Receita',
+      userId: 'user-1',
+      accomplishment: new Date(),
+      category: 'geral',
+    })
+  
+    const { transaction: updatedTransaction } = await sut.execute({
+      transactionId: transaction.id,
+      amount: 2000,
+    })
+  
+    expect(Number(updatedTransaction.amount)).toBe(2000) 
+  })
 })

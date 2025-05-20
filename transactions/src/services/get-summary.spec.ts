@@ -13,7 +13,6 @@ describe('Get Summary Use Case', () => {
   })
 
   it('should be able to get summary with positive balance', async () => {
-    // Criar transações de crédito
     await transactionsRepository.create({
       id: 'test-1',
       amount: new Decimal(1000),
@@ -32,7 +31,6 @@ describe('Get Summary Use Case', () => {
       category: 'geral',
     })
 
-    // Criar transação de débito
     await transactionsRepository.create({
       id: 'test-3',
       amount: new Decimal(-300),
@@ -46,11 +44,10 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(1200)) // 1000 + 500 - 300 = 1200
+    expect(summary).toEqual(new Decimal(1200)) 
   })
 
   it('should be able to get summary with negative balance', async () => {
-    // Criar transação de crédito
     await transactionsRepository.create({
       id: 'test-1',
       amount: new Decimal(1000),
@@ -60,7 +57,6 @@ describe('Get Summary Use Case', () => {
       category: 'geral',
     })
 
-    // Criar transações de débito
     await transactionsRepository.create({
       id: 'test-2',
       amount: new Decimal(-800),
@@ -83,7 +79,7 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(-300)) // 1000 - 800 - 500 = -300
+    expect(summary).toEqual(new Decimal(-300)) 
   })
 
   it('should return zero when user has no transactions', async () => {
@@ -95,7 +91,6 @@ describe('Get Summary Use Case', () => {
   })
 
   it('should only consider transactions from the specified user', async () => {
-    // Criar transações para o usuário 1
     await transactionsRepository.create({
       id: 'test-1',
       amount: new Decimal(1000),
@@ -105,7 +100,6 @@ describe('Get Summary Use Case', () => {
       category: 'geral',
     })
 
-    // Criar transações para o usuário 2
     await transactionsRepository.create({
       id: 'test-2',
       amount: new Decimal(2000),
@@ -119,6 +113,6 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(1000)) // Apenas a transação do user-1
+    expect(summary).toEqual(new Decimal(1000)) 
   })
 })
