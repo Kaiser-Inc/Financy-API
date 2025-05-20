@@ -1,5 +1,5 @@
-import type { UsersRepository } from '@/repositories/users-repository'
 import type { User } from '@/lib/client'
+import type { UsersRepository } from '@/repositories/users-repository'
 import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 

@@ -29,6 +29,7 @@ model Transaction {
   title          String
   amount         Decimal  @db.Decimal(10, 2)
   accomplishment DateTime @default(now())
+  category       String
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
