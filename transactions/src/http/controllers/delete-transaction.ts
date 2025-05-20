@@ -1,5 +1,5 @@
-import { makeDeleteTransactionUseCase } from '@/services/factories/make-delete-transaction'
-import { makeGetTransactionUseCase } from '@/services/factories/make-get-transactions'
+import { makeDeleteTransactionUseCase } from '@/services/factories/make-delete-transaction-use-case'
+import { makeGetTransactionUseCase } from '@/services/factories/make-get-transactions-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

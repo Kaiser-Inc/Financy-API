@@ -1,5 +1,5 @@
-import { makeExportTransactionsUseCase } from '@/services/factories/make-export-transactions'
-import { makeFetchTransactionsUseCase } from '@/services/factories/make-fetch-transactions'
+import { makeExportTransactionsUseCase } from '@/services/factories/make-export-transactions-use-case'
+import { makeFetchTransactionsUseCase } from '@/services/factories/make-fetch-transactions-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function exportTransactions(

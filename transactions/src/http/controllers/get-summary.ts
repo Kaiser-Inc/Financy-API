@@ -1,4 +1,4 @@
-import { makeFetchTransactionsUseCase } from '@/services/factories/make-fetch-transactions'
+import { makeFetchTransactionsUseCase } from '@/services/factories/make-fetch-transactions-use-case'
 import { makeGetSummaryUseCase } from '@/services/factories/make-get-summary'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
