@@ -10,7 +10,7 @@ export async function createTransaction(
     title: z.string().min(1, 'O título é obrigatório'),
     amount: z.number().positive('O valor deve ser positivo'),
     type: z.enum(['credit', 'debit']),
-    accomplishment: z.date().default(new Date()),
+    accomplishment: z.coerce.date().default(new Date()),
     category: z.string().min(1, 'A categoria é obrigatória'),
   })
 
