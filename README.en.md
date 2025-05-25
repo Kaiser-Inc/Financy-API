@@ -1,3 +1,5 @@
+[Versão em português](./README.md)
+
 # KaiserInc - Financy
 
 Financial transaction management API built with microservices architecture.
@@ -75,6 +77,10 @@ or (alternative)
 - SOLID
 - Microservices
 - Makefile
+
+<p align="center">
+  <img src="./diagram.png" alt="Financy API Architecture" />
+</p>
 
 ## Features
 
