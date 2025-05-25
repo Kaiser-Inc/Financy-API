@@ -4,11 +4,11 @@ import { deleteTransaction } from '../controllers/delete-transaction'
 import { exportTransactions } from '../controllers/export-transactions'
 import { fetchTransactions } from '../controllers/fetch-transactions'
 import { getSummary } from '../controllers/get-summary'
+import { getSummaryOnDateRange } from '../controllers/get-summary-on-date-range'
 import { getTransaction } from '../controllers/get-transaction'
+import { searchTransactions } from '../controllers/seacth-transactions'
 import { updateTransaction } from '../controllers/update-transaction'
 import { verifyJWT } from '../middlewares/authenticate'
-import { searchTransactions } from '../controllers/seacth-transactions'
-import { getSummaryOnDateRange } from '../controllers/get-summary-on-date-range'
 
 export async function appRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJWT)

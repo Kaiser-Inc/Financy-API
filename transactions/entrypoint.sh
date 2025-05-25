@@ -1,11 +1,15 @@
-#/bin/sh
+#!/bin/sh
 
-echo "Aguardando DB..."
-sleep 5
+echo "Aguardando o banco de dados..."
+until pnpm prisma db push --accept-data-loss > /dev/null 2>&1; do
+  echo "Banco de dados ainda não está pronto... aguardando"
+  sleep 2
+done
 
-echo "aplicando as migrações do prisma..."
+echo "Banco de dados está pronto!"
+echo "Aplicando migrações do Prisma..."
 pnpm prisma migrate deploy
 pnpm prisma generate
 
-echo "iniciando o app..."
+echo "Iniciando a aplicação..."
 pnpm dev

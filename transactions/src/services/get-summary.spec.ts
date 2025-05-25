@@ -44,7 +44,7 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(1200)) 
+    expect(summary).toEqual(new Decimal(1200))
   })
 
   it('should be able to get summary with negative balance', async () => {
@@ -79,7 +79,7 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(-300)) 
+    expect(summary).toEqual(new Decimal(-300))
   })
 
   it('should return zero when user has no transactions', async () => {
@@ -113,6 +113,6 @@ describe('Get Summary Use Case', () => {
       userId: 'user-1',
     })
 
-    expect(summary).toEqual(new Decimal(1000)) 
+    expect(summary).toEqual(new Decimal(1000))
   })
 })

@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules", "build", "lib/client"]
+    "ignore": ["node_modules", "build", "lib/client", "coverage"]
   },
   "formatter": {
     "enabled": true,

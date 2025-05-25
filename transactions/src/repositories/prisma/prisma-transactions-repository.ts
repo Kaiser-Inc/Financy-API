@@ -1,4 +1,4 @@
-import  { Prisma, type Transaction } from '@/lib/client'
+import { Prisma, type Transaction } from '@/lib/client'
 import { prisma } from '@/lib/prisma'
 import type {
   FilterOptions,

@@ -13,7 +13,9 @@ export async function searchTransactions(
     endDate: z.date().optional(),
   })
 
-  const { page, query, startDate, endDate } = transactionsQuerySchema.parse(request.query)
+  const { page, query, startDate, endDate } = transactionsQuerySchema.parse(
+    request.query,
+  )
 
   try {
     const searchTransactionsUseCase = makeSearchTransactionUseCase()
@@ -23,7 +25,7 @@ export async function searchTransactions(
       page,
       query,
       startDate,
-      endDate
+      endDate,
     })
 
     return reply.status(200).send({ transactions })

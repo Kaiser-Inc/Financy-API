@@ -52,8 +52,8 @@ describe('Export Transactions Use Case', () => {
     expect(worksheet.rowCount).toBe(4)
 
     const totalRow = worksheet.getRow(4)
-    expect(totalRow.getCell(2).value).toBe('TOTAL') 
-    expect(totalRow.getCell(3).value).toBe(3500) 
+    expect(totalRow.getCell(2).value).toBe('TOTAL')
+    expect(totalRow.getCell(3).value).toBe(3500)
   })
 
   it('should return empty excel with zero total when user has no transactions', async () => {
@@ -119,8 +119,7 @@ describe('Export Transactions Use Case', () => {
     expect(worksheet.rowCount).toBe(4)
 
     const totalRow = worksheet.getRow(4)
-    expect(totalRow.getCell(2).value).toBe('TOTAL') 
-    expect(totalRow.getCell(3).value).toBe(-6500) 
+    expect(totalRow.getCell(2).value).toBe('TOTAL')
+    expect(totalRow.getCell(3).value).toBe(-6500)
   })
-
 })

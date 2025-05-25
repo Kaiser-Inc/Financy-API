@@ -3,33 +3,36 @@ import dayjs from 'dayjs'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function getSummaryOnDateRange(request: FastifyRequest, reply: FastifyReply) {
+export async function getSummaryOnDateRange(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   try {
-
     const summaryQuerySchema = z.object({
-      startDate: z.string()
+      startDate: z
+        .string()
         .transform((date) => dayjs(date).startOf('day').toDate())
         .refine((date) => dayjs(date).isValid(), {
-          message: 'Data inicial inválida'
+          message: 'Data inicial inválida',
         })
         .default(dayjs().startOf('year').format('YYYY-MM-DD')),
-      endDate: z.string()
+      endDate: z
+        .string()
         .transform((date) => dayjs(date).endOf('day').toDate())
         .refine((date) => dayjs(date).isValid(), {
-          message: 'Data final inválida'
+          message: 'Data final inválida',
         })
-        .default(dayjs().endOf('day').format('YYYY-MM-DD'))
+        .default(dayjs().endOf('day').format('YYYY-MM-DD')),
     })
 
     const { startDate, endDate } = summaryQuerySchema.parse(request.query)
-
 
     const getSummaryOnDateRangeUseCase = makeGetSummaryOnDateRangeUseCase()
 
     const { summary } = await getSummaryOnDateRangeUseCase.execute({
       userId: request.user.sub,
       startDate,
-      endDate
+      endDate,
     })
 
     return reply.status(200).send({ summary })
