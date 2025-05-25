@@ -1,3 +1,5 @@
+[English Version](./README.en.md)
+
 # KaiserInc - Financy
 
 API de gerenciamento de transações financeiras arquitetada em microserviços.
@@ -79,6 +81,8 @@ ou (alternativa)
 - SOLID
 - Microserviços
 - Makefile
+
+[Diagrama da Arquitetura](./diagram.png)
 
 ## Funcionalidades
 
