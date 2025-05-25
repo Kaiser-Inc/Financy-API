@@ -11,5 +11,5 @@ COPY . .
 
 EXPOSE 4013
 
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 

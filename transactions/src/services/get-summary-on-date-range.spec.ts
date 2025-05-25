@@ -49,7 +49,7 @@ describe('Get Summary On Date Range Use Case', () => {
       endDate,
     })
 
-    expect(summary).toEqual(new Decimal(700)) 
+    expect(summary).toEqual(new Decimal(700))
   })
 
   it('should return zero when no transactions in date range', async () => {

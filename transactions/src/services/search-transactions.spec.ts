@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { SearchTransactionsUseCase } from './search-transactions'
-import { InMemoryTransactionsRepository } from '@/repositories/in-memory/in-memory-transactions-repository'
-import { Transaction } from '@/lib/client'
+import type { Transaction } from '@/lib/client'
 import { Decimal } from '@/lib/client/runtime/library'
+import { InMemoryTransactionsRepository } from '@/repositories/in-memory/in-memory-transactions-repository'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { SearchTransactionsUseCase } from './search-transactions'
 
 let transactionsRepository: InMemoryTransactionsRepository
 let sut: SearchTransactionsUseCase
@@ -36,7 +36,9 @@ describe('Search Transactions Use Case', () => {
       },
     ]
 
-    vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(mockTransactions)
+    vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(
+      mockTransactions,
+    )
 
     const { transactions } = await sut.execute({
       userId,
@@ -45,7 +47,13 @@ describe('Search Transactions Use Case', () => {
 
     expect(transactions).toHaveLength(2)
     expect(transactions).toEqual(mockTransactions)
-    expect(transactionsRepository.searchMany).toHaveBeenCalledWith(userId, page, undefined, undefined, undefined)
+    expect(transactionsRepository.searchMany).toHaveBeenCalledWith(
+      userId,
+      page,
+      undefined,
+      undefined,
+      undefined,
+    )
   })
 
   it('should be able to search transactions with filters', async () => {
@@ -66,7 +74,9 @@ describe('Search Transactions Use Case', () => {
       },
     ]
 
-    vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(mockTransactions)
+    vi.spyOn(transactionsRepository, 'searchMany').mockResolvedValue(
+      mockTransactions,
+    )
 
     const { transactions } = await sut.execute({
       userId,
@@ -99,6 +109,12 @@ describe('Search Transactions Use Case', () => {
     })
 
     expect(transactions).toHaveLength(0)
-    expect(transactionsRepository.searchMany).toHaveBeenCalledWith(userId, page, undefined, undefined, undefined)
+    expect(transactionsRepository.searchMany).toHaveBeenCalledWith(
+      userId,
+      page,
+      undefined,
+      undefined,
+      undefined,
+    )
   })
 })

@@ -1,4 +1,4 @@
-import { Prisma, Transaction } from '@/lib/client'
+import { Prisma, type Transaction } from '@/lib/client'
 import { prisma } from '@/lib/prisma'
 import type {
   FilterOptions,
@@ -18,8 +18,8 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
       where: {
         userId,
         accomplishment: {
-          gte: startDate,
-          lte: endDate,
+          gte: new Date(startDate),
+          lte: new Date(endDate),
         },
       },
     })

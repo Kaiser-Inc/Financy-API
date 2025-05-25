@@ -1,12 +1,12 @@
-import type { TransactionsRepository } from '@/repositories/transactions-repository'
 import type { Transaction } from '@/lib/client'
+import type { TransactionsRepository } from '@/repositories/transactions-repository'
 
 interface SearchTransactionsUseCaseRequest {
-    userId: string
-    page: number
-    query?: string
-    startDate?: Date
-    endDate?: Date
+  userId: string
+  page: number
+  query?: string
+  startDate?: Date
+  endDate?: Date
 }
 
 interface SearchTransactionsUseCaseResponse {
@@ -14,16 +14,22 @@ interface SearchTransactionsUseCaseResponse {
 }
 
 export class SearchTransactionsUseCase {
-    constructor(private transactionsRepository: TransactionsRepository) {}
+  constructor(private transactionsRepository: TransactionsRepository) {}
 
   async execute({
     userId,
     page,
     query,
     startDate,
-    endDate
+    endDate,
   }: SearchTransactionsUseCaseRequest): Promise<SearchTransactionsUseCaseResponse> {
-    const transactions = await this.transactionsRepository.searchMany(userId, page, query, startDate, endDate)
+    const transactions = await this.transactionsRepository.searchMany(
+      userId,
+      page,
+      query,
+      startDate,
+      endDate,
+    )
 
     return {
       transactions,
