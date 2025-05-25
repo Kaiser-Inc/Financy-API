@@ -18,6 +18,8 @@ biome:
 mount-app:
 	cd auth && pnpm i
 	cd transactions && pnpm i
+	docker compose down -v && docker-compose up --build -d FinancyDB
+	sleep 3
 	cd transactions && pnpm prisma migrate deploy
 	cd transactions && pnpm prisma generate
 	make deploy

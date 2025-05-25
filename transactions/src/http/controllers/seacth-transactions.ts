@@ -1,4 +1,5 @@
 import { makeSearchTransactionUseCase } from '@/services/factories/make-search-transactions-use-case'
+import dayjs from 'dayjs'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -9,8 +10,10 @@ export async function searchTransactions(
   const transactionsQuerySchema = z.object({
     page: z.coerce.number().min(1).default(1),
     query: z.string().optional(),
-    startDate: z.date().optional(),
-    endDate: z.date().optional(),
+    startDate: z
+        .string(),
+      endDate: z
+        .string(),
   })
 
   const { page, query, startDate, endDate } = transactionsQuerySchema.parse(
@@ -24,8 +27,8 @@ export async function searchTransactions(
       userId: request.user.sub,
       page,
       query,
-      startDate,
-      endDate,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
     })
 
     return reply.status(200).send({ transactions })
