@@ -10,19 +10,9 @@ export async function getSummaryOnDateRange(
   try {
     const summaryQuerySchema = z.object({
       startDate: z
-        .string()
-        .transform((date) => dayjs(date).startOf('day').toDate())
-        .refine((date) => dayjs(date).isValid(), {
-          message: 'Data inicial inválida',
-        })
-        .default(dayjs().startOf('year').format('YYYY-MM-DD')),
+        .string(),
       endDate: z
-        .string()
-        .transform((date) => dayjs(date).endOf('day').toDate())
-        .refine((date) => dayjs(date).isValid(), {
-          message: 'Data final inválida',
-        })
-        .default(dayjs().endOf('day').format('YYYY-MM-DD')),
+        .string(),
     })
 
     const { startDate, endDate } = summaryQuerySchema.parse(request.query)
@@ -31,8 +21,8 @@ export async function getSummaryOnDateRange(
 
     const { summary } = await getSummaryOnDateRangeUseCase.execute({
       userId: request.user.sub,
-      startDate,
-      endDate,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
     })
 
     return reply.status(200).send({ summary })
