@@ -83,6 +83,10 @@ ou (alternativa)
 - Makefile
 
 [Diagrama da Arquitetura](./diagram.png)
+<p align="center">
+  <img src="./diagram.png" alt="Financy API Architecture" />
+</p>
+
 
 ## Funcionalidades
 
