@@ -1,16 +1,28 @@
 services:
-  FinancyDB:
+  usersDB:
     image: bitnami/postgresql:latest
     ports:
       - 5432:5432
     environment:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=FinancyDB
+      - POSTGRESQL_DATABASE=users
     volumes:
-      - FinancyDB:/var/lib/postgresql/data
+      - usersDB:/var/lib/postgresql/data
 
-  financy-auth:
+  transactionsDB:
+      image: bitnami/postgresql:latest
+      ports:
+        - 5432:5432
+      environment:
+        - POSTGRESQL_USERNAME=docker
+        - POSTGRESQL_PASSWORD=docker
+        - POSTGRESQL_DATABASE=transactions
+      volumes:
+        - transactionsDB:/var/lib/postgresql/data
+
+
+  users:
     build:
       context: ./auth
     env_file:
@@ -23,18 +35,53 @@ services:
     depends_on:
       - FinancyDB
 
-  financy-transactions:
+  transactions:
     build:
       context: ./transactions
     environment:
       - DATABASE_URL=postgresql://docker:docker@FinancyDB:5432/FinancyDB
-      - AUTH_SERVICE_URL=http://financy-auth:4013
     ports:
       - "3333:3333"
       - "5555:5555"
     depends_on:
       - FinancyDB
-      - financy-auth
+
+
+  broker: 
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # mqtp port
+      - "15672:15672" #http admin port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  api-gateway:
+    build:
+      context: './docker/kong'
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_ADMIN_LISTEN: '0.0.0.0:8001'
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+      TRANSACTIONS_SERVICE_URL: http://host.docker.internal:3333
+      USERS_SERVICE_URL: http://host.docker.internal:4013
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8000:8000" #Proxy
+      - "8001:8001" # Admin API
+      - "8002:8002" # Admin UI
+      - "8443:8443" # Proxy SSL
+      - "8444:8444" # Admin API SSL
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    ports:
+      - "16686:16686" #UI
+      - "6831:6831/udp" #UDP traces
+      - "14268:14268" #HTTP traces
+      - "4317:4317" #OTLP/gRPC
+      - "4318:4318" #OTLP/HTTP
 
 volumes:
-  FinancyDB:
+  usersDB:
+  transactionsDB:
